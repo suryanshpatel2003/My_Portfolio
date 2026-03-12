@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Tilt from "react-parallax-tilt";
-import { FaPaperPlane, FaRocket } from "react-icons/fa";
+import { FaPaperPlane, FaRocket, FaCheckCircle } from "react-icons/fa";
 
 const Contact = () => {
   const form = useRef();
@@ -13,35 +13,28 @@ const Contact = () => {
     setLoading(true);
 
     const formData = new FormData(form.current);
-
-    const name = formData.get("user_name");
-    const email = formData.get("user_email");
-    const message = formData.get("message");
+    const payload = {
+      name: formData.get("user_name"),
+      email: formData.get("user_email"),
+      message: formData.get("message"),
+    };
 
     try {
       const response = await fetch("http://localhost:5000/api/contact", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-
-      const data = await response.json();
 
       if (response.ok) {
         setStatus("SUCCESS");
         form.current.reset();
-        setTimeout(() => setStatus(""), 4000);
+        setTimeout(() => setStatus(""), 5000);
       } else {
+        const data = await response.json();
         alert(data.message || "Failed to send message ❌");
       }
     } catch (error) {
-      console.error(error);
       alert("Server Error ❌");
     } finally {
       setLoading(false);
@@ -49,131 +42,140 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="relative py-32 px-6 bg-[#030014] overflow-hidden">
-      
-      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_20%,#1e293b,transparent)] opacity-20" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-orange-500/10 blur-[120px] rounded-full" />
-      
-      <div className="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+    <section id="contact" className="relative py-24 px-6 bg-[#030014] overflow-hidden">
+      {/* 1. Refined Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_10%,#1e293b,transparent)] opacity-30" />
+      <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-blue-500/10 blur-[120px] rounded-full" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-orange-500/5 blur-[100px] rounded-full" />
+
+      <div className="relative max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
         
+        {/* Left Content - Sharper & More Compact */}
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="z-10"
         >
-          <span className="text-blue-400 font-bold tracking-[8px] uppercase text-[10px] mb-6 block">
-            Protocol: Secure Connection
-          </span>
-          <h2 className="text-6xl md:text-8xl font-black text-white leading-tight mb-8">
-            Let’s <br /> 
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-orange-500 bg-clip-text text-transparent italic">
-              Create.
+          <div className="flex items-center gap-3 mb-6">
+            <div className="h-[1px] w-10 bg-blue-500" />
+            <span className="text-blue-400 font-bold tracking-[4px] uppercase text-[10px]">
+              Available for Hire
+            </span>
+          </div>
+          
+          <h2 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tighter">
+            Have a <br /> 
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent italic">
+              Vision?
             </span>
           </h2>
           
-          <p className="text-gray-400 text-lg max-w-md mb-12 leading-relaxed font-light">
-            I’m currently available for freelance projects and full-time positions. 
-            Send a message and let's build something that matters.
+          <p className="text-gray-400 text-base max-w-sm mb-8 leading-relaxed">
+            I help brands build fast, high-quality digital products. 
+            Drop a line if you're looking for a partner in code.
           </p>
+
+          <div className="flex flex-col gap-4 text-xs font-mono text-gray-500 tracking-wider">
+            <p className="flex items-center gap-3">
+              <span className="text-blue-500">→</span> RESPONSE_TIME: &lt; 24H
+            </p>
+            <p className="flex items-center gap-3">
+              <span className="text-blue-500">→</span> CURRENT_ZONE: UTC+5:30
+            </p>
+          </div>
         </motion.div>
 
-        <div className="relative group">
-          
-          <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 to-orange-500/20 rounded-[3rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000" />
+        {/* Right Content - The Form Card */}
+        <div className="relative group perspective-1000">
+          <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-100 transition duration-700" />
 
           <Tilt
-            perspective={1200}
-            tiltMaxAngleX={8}
-            tiltMaxAngleY={8}
+            tiltMaxAngleX={5}
+            tiltMaxAngleY={5}
             glareEnable={true}
-            glareMaxOpacity={0.1}
-            glareColor="#ffffff"
-            glarePosition="all"
+            glareMaxOpacity={0.05}
             className="z-20 relative"
           >
-            <div className="bg-[#050816]/90 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-2xl">
+            <div className="bg-[#0b0f24]/80 backdrop-blur-xl border border-white/10 rounded-[2rem] p-8 md:p-10 shadow-3xl">
               
-              <form ref={form} onSubmit={sendEmail} className="space-y-6">
-                
-                <div className="relative">
+              <form ref={form} onSubmit={sendEmail} className="space-y-5">
+                <div className="relative group/field">
                   <input
                     type="text"
                     name="user_name"
                     required
                     placeholder=" "
-                    className="peer w-full bg-transparent border-b border-white/10 py-4 text-white focus:outline-none focus:border-blue-500 transition-all placeholder-transparent"
+                    className="peer w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500/50 transition-all placeholder-transparent"
                   />
-                  <label className="absolute left-0 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-blue-400 peer-focus:text-xs uppercase font-bold tracking-widest">
-                    Your Name
+                  <label className="absolute left-4 top-3 text-gray-500 text-xs transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3.5 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:bg-[#0b0f24] peer-focus:px-2 peer-focus:text-blue-400 uppercase font-bold tracking-widest">
+                    Name
                   </label>
                 </div>
 
-                <div className="relative">
+                <div className="relative group/field">
                   <input
                     type="email"
                     name="user_email"
                     required
                     placeholder=" "
-                    className="peer w-full bg-transparent border-b border-white/10 py-4 text-white focus:outline-none focus:border-orange-500 transition-all placeholder-transparent"
+                    className="peer w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500/50 transition-all placeholder-transparent"
                   />
-                  <label className="absolute left-0 top-4 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-orange-400 peer-focus:text-xs uppercase font-bold tracking-widest">
-                    Email Address
+                  <label className="absolute left-4 top-3 text-gray-500 text-xs transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-3.5 peer-focus:-top-2.5 peer-focus:left-2 peer-focus:bg-[#0b0f24] peer-focus:px-2 peer-focus:text-blue-400 uppercase font-bold tracking-widest">
+                    Email
                   </label>
                 </div>
 
-                <div className="relative pt-4">
+                <div className="relative group/field pt-2">
                   <textarea
                     name="message"
                     required
                     rows="4"
                     placeholder=" "
-                    className="peer w-full bg-transparent border-b border-white/10 py-4 text-white focus:outline-none focus:border-blue-500 transition-all resize-none placeholder-transparent"
+                    className="peer w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500/50 transition-all resize-none placeholder-transparent"
                   />
-                  <label className="absolute left-0 top-8 text-gray-500 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-600 peer-placeholder-shown:top-8 peer-focus:top-0 peer-focus:text-blue-400 peer-focus:text-xs uppercase font-bold tracking-widest">
-                    The Message
+                  <label className="absolute left-4 top-5 text-gray-500 text-xs transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-6 peer-focus:top-0 peer-focus:left-2 peer-focus:bg-[#0b0f24] peer-focus:px-2 peer-focus:text-blue-400 uppercase font-bold tracking-widest">
+                    Message
                   </label>
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   disabled={loading}
-                  className="w-full mt-8 py-5 rounded-full border border-white/20 text-white font-bold tracking-[6px] uppercase text-[10px] relative overflow-hidden group transition-all"
+                  className="w-full mt-4 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-blue-400 text-white font-bold tracking-[2px] uppercase text-xs relative overflow-hidden shadow-[0_10px_20px_rgba(37,99,235,0.2)]"
                 >
-                  <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                  <span className="relative z-10 group-hover:text-black transition-colors flex items-center justify-center gap-4">
-                    {loading ? "Transmitting..." : <>Initiate Project <FaPaperPlane /></>}
+                  <span className="flex items-center justify-center gap-3">
+                    {loading ? "Sending..." : <>Send Message <FaPaperPlane className="text-[10px]" /></>}
                   </span>
                 </motion.button>
-
               </form>
 
               <AnimatePresence>
-                {status && (
+                {status === "SUCCESS" && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="absolute inset-0 flex items-center justify-center bg-[#050816]/95 rounded-[2.5rem] z-30 p-10 text-center"
+                    className="absolute inset-0 flex items-center justify-center bg-[#0b0f24] rounded-[2rem] z-30 p-8 text-center"
                   >
                     <div className="space-y-4">
-                      <FaRocket className="text-4xl text-blue-400 mx-auto animate-bounce" />
-                      <h3 className="text-xl font-bold text-white tracking-widest uppercase">
-                        Transmission Sent
+                      <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
+                        <FaCheckCircle className="text-3xl text-green-500" />
+                      </div>
+                      <h3 className="text-lg font-bold text-white tracking-widest uppercase">
+                        Message Sent
                       </h3>
                       <p className="text-gray-400 text-xs">
-                        Your message has reached the orbit. I'll get back to you soon!
+                        Transmission received. I'll get back to you shortly.
                       </p>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-
             </div>
           </Tilt>
         </div>
-
       </div>
     </section>
   );
