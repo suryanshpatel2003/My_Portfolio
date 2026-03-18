@@ -1,8 +1,13 @@
+import car from "../assets/car.webp";
+import Infratech from "../assets/infra.webp";
+import test from "../assets/test.png";
+import job from "../assets/job.png";
 export const projects = [
   {
     title: "Driver Booking Platform (Uber-like Model)",
     description:
       "Built a real-time MERN stack driver booking platform with booking lifecycle (ACCEPTED → ON_THE_WAY → COMPLETED), live location tracking, in-app chat, wallet & payout system, surge pricing, and Razorpay payment integration. Implemented JWT authentication and role-based dashboards (User / Driver / Admin). Solves real-world mobility use case.",
+      image: car,
     tech: [
       "React.js",
       "Node.js",
@@ -21,6 +26,7 @@ export const projects = [
     title: "Test Series Management System (Microservice Architecture)",
     description:
       "Developed a scalable test series microservice currently used for UPSC/BPSC preparation platform. Students can purchase test series and attempt timed exams, while Admin can create test series, manage questions, evaluate results, and track performance analytics. Designed with role-based authentication and modular architecture so it can be integrated into any ed-tech platform.",
+      image: test,
     tech: [
       "React.js",
       "Node.js",
@@ -38,7 +44,8 @@ export const projects = [
     title: "Mannati Infratech – Corporate Website",
     description:
       "Developed a premium corporate MERN website with secure admin dashboard to manage projects, events, and gallery content. Implemented client enquiry/contact system for lead management and built a fully responsive professional UI.",
-    tech: [
+    image: Infratech,
+      tech: [
       "React.js",
       "Node.js",
       "Express.js",
@@ -68,7 +75,8 @@ export const projects = [
     title: "AI-Based Job Prediction Platform",
     description:
       "Built an AI-powered MERN platform that predicts suitable job roles based on user education and skills. Implemented profile creation, resume upload, and automated job recommendations with ranked confidence scores for career guidance.",
-    tech: [
+    image: job,
+      tech: [
       "React.js",
       "Node.js",
       "Express.js",

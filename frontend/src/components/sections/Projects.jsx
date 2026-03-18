@@ -49,12 +49,24 @@ const Projects = () => {
                   
                   {/* Project Image Area (Smaller & Sleek) */}
                   <div className="relative w-full h-40 bg-[#050816] rounded-2xl mb-6 overflow-hidden border border-white/5">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent" />
-                    {/* Yahan project image daloge toh woh "Framed" lagegi */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                       <span className="text-[10px] font-mono text-white/10 tracking-[10px] uppercase rotate-12 group-hover:scale-150 transition-transform duration-1000">Preview</span>
-                    </div>
-                  </div>
+
+  {project.image ? (
+    <img
+      src={project.image}
+      alt={project.title}
+      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+    />
+  ) : (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <span className="text-[10px] font-mono text-white/10 tracking-[10px] uppercase rotate-12">
+        Preview
+      </span>
+    </div>
+  )}
+
+  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+
+</div>
 
                   {/* Metadata */}
                   <div className="flex justify-between items-center mb-3">
