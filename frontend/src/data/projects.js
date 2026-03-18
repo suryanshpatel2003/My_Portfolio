@@ -58,7 +58,7 @@ export const projects = [
   },
 
   {
-    title: "The Brilliant Bihar – UPSC/BPSC Learning Platform (Contributor)",
+    title: "The Brilliant Bihar– UPSC/BPSC Learning Platform (Contributor)",
     description:
       "Contributed to a live ed-tech platform by developing the Resource Module (Mock Interviews, PYQ, NCERT, Magazines). Structured chapter-wise notes, learning resources, and test modules for UPSC/BPSC aspirants.",
     tech: [
