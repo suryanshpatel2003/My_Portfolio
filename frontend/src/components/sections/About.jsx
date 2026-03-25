@@ -50,7 +50,6 @@ const About = () => {
             {[
               { number: "10+", label: "Projects Delivered" },
               { number: "15+", label: "Technologies Used" },
-              { number: "1+", label: "Years Experience" },
               { number: "Full Stack", label: "Primary Focus" },
             ].map((item, i) => (
               <motion.div
