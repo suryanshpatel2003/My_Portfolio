@@ -87,7 +87,7 @@ const Navbar = () => {
               <motion.a
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                href="/UPDATED_RESUME.pdf"
+                href="/Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleResumeClick}
