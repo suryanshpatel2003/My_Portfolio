@@ -42,7 +42,7 @@ const Navbar = () => {
   };
 
   const handleResumeClick = () => {
-    fetch("http://localhost:5000/api/track", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/track`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "resume_view" }),
