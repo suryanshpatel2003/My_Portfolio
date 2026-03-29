@@ -15,8 +15,8 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // local dev
-      "https://my-portfolio-8ihexmn1g-suryansh-patels-projects-2ec66f2e.vercel.app", // 🔥 tera vercel URL
+      "http://localhost:5173",
+      "https://my-portfolio-eta-inky-19.vercel.app", // 🔥 UPDATED
     ],
     methods: ["GET", "POST"],
     credentials: true,
