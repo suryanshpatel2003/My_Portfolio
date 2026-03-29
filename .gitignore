@@ -1,3 +1,4 @@
 frontend/node_modules
+frontend/.env
 portfolio-backend/node_modules
 portfolio-backend/.env
