@@ -10,9 +10,22 @@ dotenv.config();
 const app = express();
 
 /* ==============================
+   🔥 CORS FIX (IMPORTANT)
+============================== */
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // local dev
+      "https://my-portfolio-8ihexmn1g-suryansh-patels-projects-2ec66f2e.vercel.app", // 🔥 tera vercel URL
+    ],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+
+/* ==============================
    🔥 Middleware
 ============================== */
-app.use(cors()); // ✅ FIXED
 app.use(express.json());
 
 /* ==============================
@@ -38,7 +51,6 @@ mongoose.connect(process.env.MONGO_URI)
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
-
   })
   .catch((err) => {
     console.error("MongoDB Connection Failed ❌", err);
