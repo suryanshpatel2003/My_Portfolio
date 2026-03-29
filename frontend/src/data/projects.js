@@ -22,7 +22,7 @@ export const projects = [
       "Cloudinary"
     ],
     github: "#",
-    live: "#",
+    live: "https://our-driver-booking.vercel.app/",
   },
 
   {
@@ -40,7 +40,7 @@ export const projects = [
       "REST APIs"
     ],
     github: "#",
-    live: "#",
+    live: "https://thebrilliantbihar.com/batch-details/answer-writing-development-programme",
   },
 
   {
@@ -65,22 +65,22 @@ export const projects = [
     description:
       "Contributed to a live ed-tech platform by developing the Resource Module (Mock Interviews, PYQ, NCERT, Magazines). Structured chapter-wise notes, learning resources, and test modules for UPSC/BPSC aspirants.",
     image: bihar,
-      tech: [
+    tech: [
       "React.js",
       "Node.js",
       "MongoDB",
       "REST APIs"
     ],
     github: "#",
-    live: "#",
+    live: "https://thebrilliantbihar.com/",
   },
 
-   {
+  {
     title: "Employee Monitoring System",
     description:
       "Developed a comprehensive monitoring solution using MERN stack and Python. The system tracks employee activity, productivity metrics, and work logs in real-time. Integrated Python scripts for data analysis and background activity tracking to provide actionable insights to administrators through a centralized dashboard.",
     image: test,
-      tech: [
+    tech: [
       "MongoDB",
       "Express.js",
       "React.js",
@@ -91,22 +91,38 @@ export const projects = [
     ],
     github: "#",
     live: "#",
-  } ,
+  },
 
   {
-    title: "AI-Based Job Prediction Platform",
+    title: "Keeper App (MERN)",
     description:
-      "Built an AI-powered MERN platform that predicts suitable job roles based on user education and skills. Implemented profile creation, resume upload, and automated job recommendations with ranked confidence scores for career guidance.",
+      "Developed a note management application supporting CRUD operations with authentication. Implemented responsive UI and efficient state management. Designed a scalable architecture ensuring maintainability and smooth performance.",
     image: job,
     tech: [
       "React.js",
       "Node.js",
       "Express.js",
       "MongoDB",
-      "Machine Learning Integration",
       "JWT"
     ],
     github: "#",
-    live: "#",
+    live: "https://keeper-app-beryl-sigma.vercel.app/",
   },
+
+  // {
+  //   title: "AI-Based Job Prediction Platform",
+  //   description:
+  //     "Built an AI-powered MERN platform that predicts suitable job roles based on user education and skills. Implemented profile creation, resume upload, and automated job recommendations with ranked confidence scores for career guidance.",
+  //   image: job,
+  //   tech: [
+  //     "React.js",
+  //     "Node.js",
+  //     "Express.js",
+  //     "MongoDB",
+  //     "Machine Learning Integration",
+  //     "JWT"
+  //   ],
+  //   github: "#",
+  //   live: "#",
+  // },
 ];
