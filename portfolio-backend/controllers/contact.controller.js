@@ -1,7 +1,6 @@
-import dotenv from "dotenv";
-import { transporter } from "../config/mail.config.js";
+import { Resend } from "resend";
 
-dotenv.config();
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendContactMail = async (req, res) => {
   try {
@@ -15,10 +14,10 @@ export const sendContactMail = async (req, res) => {
        1️⃣ Mail to You (Admin)
     ============================== */
 
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      replyTo: email,
-      to: process.env.EMAIL_USER,
+    await resend.emails.send({
+      from: "Portfolio <onboarding@resend.dev>",
+      to: "suryansh30patel@gmail.com",
+      reply_to: email,
       subject: `New Message from ${name}`,
       html: `
         <h2>📩 New Portfolio Message</h2>
@@ -30,14 +29,14 @@ export const sendContactMail = async (req, res) => {
     });
 
     /* ==============================
-       2️⃣ Auto Reply to User
+       2️⃣ Auto Reply to User (SAME DESIGN 🔥)
     ============================== */
 
- await transporter.sendMail({
-  from: `"Suryansh Patel" <${process.env.EMAIL_USER}>`,
-  to: email,
-  subject: "🚀 Thanks for contacting Suryansh",
-  html: `
+    await resend.emails.send({
+      from: "Suryansh Patel <onboarding@resend.dev>",
+      to: email,
+      subject: "🚀 Thanks for contacting Suryansh",
+      html: `
     <div style="margin:0;padding:0;background:#0f172a;font-family:Arial,sans-serif;">
       
       <table width="100%" cellpadding="0" cellspacing="0">
@@ -102,13 +101,13 @@ export const sendContactMail = async (req, res) => {
         </tr>
       </table>
     </div>
-  `,
-});
+      `,
+    });
 
     res.status(200).json({ message: "Email sent successfully 🚀" });
 
   } catch (error) {
-    console.error("MAIL ERROR:", error);
+    console.error("RESEND ERROR:", error);
     res.status(500).json({ message: "Email failed ❌" });
   }
 };
