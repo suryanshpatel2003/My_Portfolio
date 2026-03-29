@@ -1,17 +1,29 @@
 import { Resend } from "resend";
 
+// ✅ ENV safety check
+if (!process.env.RESEND_API_KEY) {
+  throw new Error("❌ RESEND_API_KEY missing in environment variables");
+}
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendContactMail = async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
+    // ✅ Validation
     if (!name || !email || !message) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
+    // ✅ Basic email format check (extra safety)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ message: "Invalid email address" });
+    }
+
     /* ==============================
-       1️⃣ Mail to You (Admin)
+       1️⃣ Mail to YOU (Admin)
     ============================== */
 
     await resend.emails.send({
@@ -29,7 +41,7 @@ export const sendContactMail = async (req, res) => {
     });
 
     /* ==============================
-       2️⃣ Auto Reply to User (SAME DESIGN 🔥)
+       2️⃣ Auto Reply to User (YOUR DESIGN 🔥)
     ============================== */
 
     await resend.emails.send({
@@ -104,10 +116,15 @@ export const sendContactMail = async (req, res) => {
       `,
     });
 
+    // ✅ Success response
     res.status(200).json({ message: "Email sent successfully 🚀" });
 
   } catch (error) {
     console.error("RESEND ERROR:", error);
-    res.status(500).json({ message: "Email failed ❌" });
+
+    res.status(500).json({
+      message: "Email failed ❌",
+      error: error.message, // 🔥 debugging friendly
+    });
   }
 };
