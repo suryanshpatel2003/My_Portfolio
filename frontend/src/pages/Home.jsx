@@ -8,7 +8,7 @@ import ScrollProgress from "../components/layout/ScrollProgress";
 import About from "../components/sections/About";
 const Home = () => {
   return (
-    <><ScrollProgress />
+      <><ScrollProgress />
       <Navbar />
       <Hero />
       <Projects />

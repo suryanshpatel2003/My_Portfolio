@@ -3,11 +3,6 @@ import { useEffect } from "react";
 import Home from "./pages/Home";
 import useMouseGlow from "./hooks/useMouseGlow";
 import AnimatedBackground from "./components/layout/AnimatedBackground";
-
-/**
- * CursorGlow Component
- * Velocity-reactive glow
- */
 const CursorGlow = () => {
   const { smoothX, smoothY, scaleX, scaleY } = useMouseGlow();
 

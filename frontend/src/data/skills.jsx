@@ -11,9 +11,7 @@ import {
   SiMongodb, 
   SiMysql, 
   SiPostgresql, 
-  SiCloudinary, 
-  SiRazorpay, 
-  SiRender, 
+  SiCloudinary,  
   SiVercel, 
   SiPostman, 
 
@@ -48,7 +46,6 @@ export const skills = {
     { name: "AWS S3", icon: <FaAws className="text-[#FF9900]" /> },
     { name: "Cloudinary", icon: <SiCloudinary className="text-[#3448C5]" /> },
     { name: "Vercel", icon: <SiVercel className="text-white" /> },
-    { name: "Docker", icon: <FaDocker className="text-[#2496ED]" /> },
   ],
 
   tools: [
