@@ -1,35 +1,22 @@
-import { Resend } from "resend";
-
-// ✅ ENV safety check
-if (!process.env.RESEND_API_KEY) {
-  throw new Error("❌ RESEND_API_KEY missing in environment variables");
-}
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { transporter } from "../config/mail.config.js";
 
 export const sendContactMail = async (req, res) => {
   try {
     const { name, email, message } = req.body;
 
-    // ✅ Validation
+    // ✅ validation
     if (!name || !email || !message) {
       return res.status(400).json({ message: "All fields are required" });
-    }
-
-    // ✅ Basic email format check (extra safety)
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ message: "Invalid email address" });
     }
 
     /* ==============================
        1️⃣ Mail to YOU (Admin)
     ============================== */
 
-    await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>",
-      to: "suryansh30patel@gmail.com",
-      reply_to: email,
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+      replyTo: email,
+      to: process.env.EMAIL_USER,
       subject: `New Message from ${name}`,
       html: `
         <h2>📩 New Portfolio Message</h2>
@@ -41,11 +28,11 @@ export const sendContactMail = async (req, res) => {
     });
 
     /* ==============================
-       2️⃣ Auto Reply to User (YOUR DESIGN 🔥)
+       2️⃣ Auto Reply to User (SAME DESIGN 🔥)
     ============================== */
 
-    await resend.emails.send({
-      from: "Suryansh Patel <onboarding@resend.dev>",
+    await transporter.sendMail({
+      from: `"Suryansh Patel" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "🚀 Thanks for contacting Suryansh",
       html: `
@@ -116,15 +103,10 @@ export const sendContactMail = async (req, res) => {
       `,
     });
 
-    // ✅ Success response
     res.status(200).json({ message: "Email sent successfully 🚀" });
 
   } catch (error) {
-    console.error("RESEND ERROR:", error);
-
-    res.status(500).json({
-      message: "Email failed ❌",
-      error: error.message, // 🔥 debugging friendly
-    });
+    console.error("MAIL ERROR:", error);
+    res.status(500).json({ message: "Email failed ❌" });
   }
 };
